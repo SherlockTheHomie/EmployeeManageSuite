@@ -1,10 +1,32 @@
-create database employeedb;
+drop database if exists managetheworldb;
+create database managetheworldb;
+use managetheworldb;
 
-create table employee(
+create table department (
+id int primary key auto_increment,
+name varchar(30) not null
+);
 
-    id int primary key auto_increment,
-    name varchar(30),
-    role_id int
-)
+create table role (
+id int primary key auto_increment,
+title varchar(30) not null,
+salary DECIMAL not null,
+department_id INT,
+foreign key (department_id)
+references department(id)
+on delete cascade
+);
 
-insert into employee (id, name, role_id) valuies (1, "Jason, Face", 6)
+create table employee (
+id int primary key auto_increment,
+first_name varchar(30) not null,
+last_name varchar(30) not null,
+role_id int,
+foreign key (role_id)
+references role(id)
+on delete cascade
+manager_id int,
+foreign key (manager_id)
+references employee(id)
+on delete set null
+);
