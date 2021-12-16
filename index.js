@@ -162,46 +162,46 @@ async function addDepartment() {
 ]); 
     const [rows, fields] = await (
     await connection
-    ).execute (`INSERT INTO department (name) VALUES ("${deptname}")`);
+    ).execute (`INSERT INTO department (name) VALUES (?)`, deptname);
     
     console.log(`${deptname} has been added!`)
     await initManager();
 }
 
-
-
 async function addRole() {
-    const {deptname} = await inquirer.prompt([
+    const {newrole} = await inquirer.prompt([
         {
-        type: 'input',
-        message: 'Please enter the name of the new role...',
-        name: 'rolename', 
-        }
+            type: 'input',
+            message: 'Please enter the name of the new role...',
+            name: 'rolename', 
+        },
+        {
+            type: 'input',
+            message: 'Please enter the name of the new role...',
+            name: 'rolesalary', 
+        },
+        {
+            type: 'input',
+            message: 'Please enter the name of the new role...',
+            name: 'roledepartment', 
+        },
 ]); 
     const [rows, fields] = await (
     await connection
-    ).execute (`INSERT INTO roles (title, salary, department) VALUES ("${rolename}", "${roleSalary}", "${departmentid}")`);
+    ).execute (`INSERT INTO roles (title, salary, department) VALUES (?)`, newrole);
     
     console.log(`${rolename} has been added!`)
     await initManager();  
 }
 
-let addEmployee = async () => {
-
+async function addEmployee() {
     const addEmp = await mysql.query({ host: 'local', user: 'root', database: 'managetheworldb' })
-
     const data = await addEmp.execute("select * from role");
-
     console.table(rows);
-
 }
 
 let adjustEmployee = async () => {
-
     const editEmp = await mysql.query({ host: 'local', user: 'root', database: 'managetheworldb' })
-
     const data = await editEmp.execute("select * from role");
-
     console.table(rows);
-
 }

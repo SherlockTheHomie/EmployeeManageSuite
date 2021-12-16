@@ -34,5 +34,6 @@ references roles(role_id) ON DELETE CASCADE,
 
 manager_id int,
 foreign key (manager_id)
+
 references employees(employee_id) ON DELETE CASCADE
 );
